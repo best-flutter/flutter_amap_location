@@ -144,6 +144,14 @@ class _HomeState extends State<Home>{
   }
 
 
+  @override
+  void dispose() {
+    //注意这里关闭
+    AMapLocationClient.shutdown();
+    super.dispose();
+  }
+
+
   List<Widget> render(BuildContext context,List children){
     return ListTile.divideTiles(context:context,tiles: children.map((dynamic data){
       return buildListTile(context, data["title"], data["subtitle"],data["url"]);
