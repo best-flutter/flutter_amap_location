@@ -143,7 +143,7 @@ static NSDictionary* DesiredAccuracy = @{@"kCLLocationAccuracyBest":@(kCLLocatio
         {
             //定位错误：此时location和regeocode没有返回值，不进行annotation的添加
             NSLog(@"定位错误:{%ld - %@};", (long)error.code, error.localizedDescription);
-            result(@{ @"code":@(error.code),@"description":error.localizedDescription });
+            result(@{ @"code":@(error.code),@"description":error.localizedDescription, @"success":@NO });
             return;
         }
         else if (error != nil
@@ -161,7 +161,7 @@ static NSDictionary* DesiredAccuracy = @{@"kCLLocationAccuracyBest":@(kCLLocatio
         {
             //存在虚拟定位的风险：此时location和regeocode没有返回值，不进行annotation的添加
             NSLog(@"存在虚拟定位的风险:{%ld - %@};", (long)error.code, error.localizedDescription);
-            result(@{ @"code":@(error.code),@"description":error.localizedDescription });
+            result(@{ @"code":@(error.code),@"description":error.localizedDescription, @"success":@NO  });
             return;
         }
         else
@@ -172,13 +172,15 @@ static NSDictionary* DesiredAccuracy = @{@"kCLLocationAccuracyBest":@(kCLLocatio
         NSMutableDictionary* md = [[NSMutableDictionary alloc]initWithDictionary: [AmapLocationPlugin location2map:location]  ];
         if (regeocode)
         {
-            
             [md addEntriesFromDictionary:[AmapLocationPlugin regeocode2map:regeocode]];
-                    }
+            md[@"code"] = @0;
+            md[@"success"] = @YES;
+        }
         else
         {
             md[@"code"]=@(error.code);
             md[@"description"]=error.localizedDescription;
+            md[@"success"] = @YES;
         }
         
         result(md);
@@ -253,6 +255,8 @@ static NSDictionary* DesiredAccuracy = @{@"kCLLocationAccuracyBest":@(kCLLocatio
         [md addEntriesFromDictionary:[ AmapLocationPlugin regeocode2map:reGeocode ]];
     }
     
+    md[@"success"]=@YES;
+    
     [self.channel invokeMethod:@"updateLocation" arguments:md];
     
 }
@@ -280,7 +284,7 @@ static NSDictionary* DesiredAccuracy = @{@"kCLLocationAccuracyBest":@(kCLLocatio
 
     
     
-    [self.channel invokeMethod:@"updateLocation" arguments:@{ @"code":@(error.code),@"description":error.localizedDescription }];
+    [self.channel invokeMethod:@"updateLocation" arguments:@{ @"code":@(error.code),@"description":error.localizedDescription,@"success":@NO }];
 
     
 
