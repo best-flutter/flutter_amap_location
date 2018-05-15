@@ -1,0 +1,22 @@
+PODS:
+  - amap_location (0.0.1):
+    - Flutter
+  - Flutter (1.0.0)
+
+DEPENDENCIES:
+  - amap_location (from `Pods/.symlinks/plugins/amap_location/ios`)
+  - Flutter (from `Pods/.symlinks/flutter/ios`)
+
+EXTERNAL SOURCES:
+  amap_location:
+    :path: Pods/.symlinks/plugins/amap_location/ios
+  Flutter:
+    :path: Pods/.symlinks/flutter/ios
+
+SPEC CHECKSUMS:
+  amap_location: b50ee77a0ea453c37af92be5000c62b78e9ab976
+  Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
+
+PODFILE CHECKSUM: 13dcf421f4da2e937a57e8ba760ed880beae536f
+
+COCOAPODS: 1.5.2
