@@ -1,7 +1,14 @@
 # flutter_amap_location
 
+
+![android preview](https://github.com/jzoom/flutter_amap_location/raw/master/res/QQ20180515-200012.gif)
+
+![ios preview](https://github.com/jzoom/flutter_amap_location/raw/master/res/QQ20180515-200733.gif)
+
 高德地图定位flutter组件。
+
 目前实现直接获取定位和监听定位功能。
+
 注意：随着flutter版本的提升， 本项目也会随之更新，
 
 ## Getting Started
