@@ -1,3 +1,10 @@
-## [0.0.1] - TODO: Add release date.
+## [0.0.1] - [2018-05-15]
+ * ANDROID
+ * IOS
+ * 直接获取定位
+ * 监听定位改变
 
-* TODO: Describe initial release.
+## [0.0.2] - [2018-05-15]
+ * 更新README
+
+ 
