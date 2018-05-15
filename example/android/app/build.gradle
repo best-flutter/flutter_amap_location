@@ -31,6 +31,22 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        release {
+            keyAlias 'flutter_amap'
+            keyPassword '123456'
+            storeFile file('flutter_amap_location_example.keystore')
+            storePassword '123456'
+        }
+        debug {
+            keyAlias 'flutter_amap'
+            keyPassword '123456'
+            storeFile file('flutter_amap_location_example.keystore')
+            storePassword '123456'
+        }
+    }
+
+
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.

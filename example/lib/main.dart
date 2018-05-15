@@ -4,6 +4,15 @@ import 'package:amap_location/amap_location.dart';
 import 'package:async_loader/async_loader.dart';
 
 void main(){
+  /*============*/
+  //设置ios的key
+  /*=============*/
+  AMapLocationClient.setApiKey("a5bae506b2d053ed4ae7827f38b1766d");
+  /*============*/
+  //设置ios的key
+  /*=============*/
+
+
   runApp(new MaterialApp(home: new Home(),routes:{
     "/location/get":(BuildContext context)=>new LocationGet(),
     "/location/listen":(BuildContext content)=>new LocationListen()
@@ -22,7 +31,7 @@ class _LocationGetState extends State{
           initState: () async=>await AMapLocationClient.getLocation(true),
           renderSuccess: ({data}){
             AMapLocation loc = data;
-            return new Text("定位成功");
+            return new Text(getLocationStr(loc));
           },
           renderError: ([error]){
             return new Text("定位失败");
@@ -39,6 +48,15 @@ class _LocationGetState extends State{
   void initState() {
     super.initState();
   }
+
+  @override
+  void dispose() {
+
+    //这里可以停止定位
+    //AMapLocationClient.stopLocation();
+
+    super.dispose();
+  }
 }
 
 
@@ -48,17 +66,38 @@ class LocationGet extends StatefulWidget{
   State<StatefulWidget> createState()=>new _LocationGetState();
 
 
+
+
 }
 
+String getLocationStr(AMapLocation loc){
+  if(loc==null){
+    return "正在定位";
+  }
+
+  if(loc.isSuccess()){
+    if(loc.hasAddress()){
+      return "定位成功: \n时间${loc.timestamp}\n经纬度:${loc.latitude} ${loc.longitude}\n 地址:${loc.formattedAddress} ";
+    }else{
+      return "定位成功: \n时间${loc.timestamp}\n经纬度:${loc.latitude} ${loc.longitude}\n ";
+    }
+  }else{
+    return "定位失败: \n错误:{code=${loc.code},description=${loc.description}";
+  }
+}
 
 class _LocationListenState extends State{
+  String location;
+
+
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: new AppBar(
           title: new Text('监听定位改变'),
         ),
-        body:null
+        body:new Center(child: new Text(location),)
     );
 
   }
@@ -66,7 +105,25 @@ class _LocationListenState extends State{
   @override
   void initState() {
 
+    AMapLocationClient.onLocationUpate.listen((AMapLocation loc){
+      if(!mounted)return;
+      setState(() {
+        location = getLocationStr(loc);
+      });
+    });
+
+    location = getLocationStr(null);
+
+    AMapLocationClient.startLocation();
+
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    //注意这里停止监听
+    AMapLocationClient.stopLocation();
+    super.dispose();
   }
 }
 
@@ -81,8 +138,8 @@ class _HomeState extends State<Home>{
 
   @override
   void initState() {
-    //启动客户端
-    AMapLocationClient.startup(new AMapLocationOption());
+    //启动客户端,这里设置ios端的精度小一点
+    AMapLocationClient.startup(new AMapLocationOption( desiredAccuracy:CLLocationAccuracy.kCLLocationAccuracyHundredMeters  ));
     super.initState();
   }
 

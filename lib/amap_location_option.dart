@@ -103,6 +103,21 @@ class AMapLocationOption{
   ///连续定位是否返回逆地理信息，默认NO。
   final bool locatingWithReGeocode;
 
+  ///检测是否存在虚拟定位风险，默认为NO，不检测。
+  /// \n注意:设置为YES时，单次定位通过 AMapLocatingCompletionBlock 的
+  /// error给出虚拟定位风险提示；
+  /// 连续定位通过 amapLocationManager:didFailWithError: 方法的
+  /// error给出虚拟定位风险提示。
+  /// error格式为error.domain==AMapLocationErrorDomain;
+  /// error.code==AMapLocationErrorRiskOfFakeLocation;
+  final bool detectRiskOfFakeLocation;
+
+  ///设定定位的最小更新距离。单位米，默认为 kCLDistanceFilterNone，表示只要检测到设备位置发生变化就会更新位置信息。
+  final double distanceFilter;
+
+
+  static final double kCLDistanceFilterNone = -1.0;
+
 
   /**
    * 以下为通用属性
@@ -124,13 +139,13 @@ class AMapLocationOption{
     this.locationCacheEnable : true,
 
     this.allowsBackgroundLocationUpdates : false,
-    this.desiredAccuracy : CLLocationAccuracy.kCLLocationAccuracyBest,
+    this.desiredAccuracy : CLLocationAccuracy.kCLLocationAccuracyBest, //精度越高，时间越久
     this.locatingWithReGeocode : false,
-    this.locationTimeout : 10000,     //30有点长，特殊情况才需要这么长，改成10
+    this.locationTimeout : 5,     //注意这里的单位为秒
     this.pausesLocationUpdatesAutomatically : false,
-    this.reGeocodeTimeout : 5000,
-
-
+    this.reGeocodeTimeout : 5,     //注意ios的时间单位是秒
+    this.detectRiskOfFakeLocation:false,
+    this.distanceFilter : -1.0,
     this.geoLanguage : GeoLanguage.DEFAULT,
 
 
@@ -207,6 +222,8 @@ class AMapLocationOption{
         "locationTimeout":locationTimeout,
         "pausesLocationUpdatesAutomatically":pausesLocationUpdatesAutomatically,
         "reGeocodeTimeout":reGeocodeTimeout,
+        "detectRiskOfFakeLocation":detectRiskOfFakeLocation,
+        "distanceFilter":distanceFilter,
         "geoLanguage":getGeoLanguage()
 
       };

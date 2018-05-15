@@ -1,10 +1,23 @@
 #import "AmapLocationPlugin.h"
 
+#import <AMapFoundationKit/AMapFoundationKit.h>
 #import <AMapLocationKit/AMapLocationKit.h>
+
+
+/*
+static NSDictionary* DesiredAccuracy = @{@"kCLLocationAccuracyBest":@(kCLLocationAccuracyBest),
+                                         @"kCLLocationAccuracyNearestTenMeters":@(kCLLocationAccuracyNearestTenMeters),
+                                         @"kCLLocationAccuracyHundredMeters":@(kCLLocationAccuracyHundredMeters),
+                                         @"kCLLocationAccuracyKilometer":@(kCLLocationAccuracyKilometer),
+                                         @"kCLLocationAccuracyThreeKilometers":@(kCLLocationAccuracyThreeKilometers),
+                                         
+                                         };*/
+
+
 @interface AmapLocationPlugin()<AMapLocationManagerDelegate>
 
 @property (nonatomic, retain)  AMapLocationManager *locationManager;
-
+@property (nonatomic, copy) AMapLocatingCompletionBlock completionBlock;
 @property (nonatomic, weak) FlutterMethodChannel* channel;
 
 @end
@@ -45,21 +58,47 @@
         
         result(@([self updateOption:call.arguments]));
         
+    }else if([@"setApiKey" isEqualToString:method]){
+        [AMapServices sharedServices].apiKey = call.arguments;
+
+        result(@YES);
     } else {
         result(FlutterMethodNotImplemented);
     }
+}
+
+-(double)getDesiredAccuracy:(NSString*)str{
+    
+    if([@"kCLLocationAccuracyBest" isEqualToString:str]){
+        return kCLLocationAccuracyBest;
+    }else if([@"kCLLocationAccuracyNearestTenMeters" isEqualToString:str]){
+        return kCLLocationAccuracyNearestTenMeters;
+    }else if([@"kCLLocationAccuracyHundredMeters" isEqualToString:str]){
+        return kCLLocationAccuracyHundredMeters;
+    }
+    else if([@"kCLLocationAccuracyKilometer" isEqualToString:str]){
+        return kCLLocationAccuracyKilometer;
+    }
+    else{
+        return kCLLocationAccuracyThreeKilometers;
+    }
+
+    
 }
 
 -(BOOL)updateOption:(NSDictionary*)args{
     if(self.locationManager){
      
         //设置期望定位精度
-        [self.locationManager setDesiredAccuracy:[args[@"desiredAccuracy"] doubleValue]];
+        [self.locationManager setDesiredAccuracy:[ self getDesiredAccuracy: args[@"desiredAccuracy"]]];
         
-        //设置不允许系统暂停定位
+        NSLog(@"%@",args);
+        
         [self.locationManager setPausesLocationUpdatesAutomatically:[args[@"pausesLocationUpdatesAutomatically"] boolValue]];
         
-        //设置允许在后台定位
+        [self.locationManager setDistanceFilter: [args[@"distanceFilter"] doubleValue]];
+        
+        //设置在能不能再后台定位
         [self.locationManager setAllowsBackgroundLocationUpdates:[args[@"allowsBackgroundLocationUpdates"] boolValue]];
         
         //设置定位超时时间
@@ -70,6 +109,9 @@
         
         //定位是否需要逆地理信息
         [self.locationManager setLocatingWithReGeocode:[args[@"locatingWithReGeocode"] boolValue]];
+        
+        ///检测是否存在虚拟定位风险，默认为NO，不检测。 \n注意:设置为YES时，单次定位通过 AMapLocatingCompletionBlock 的error给出虚拟定位风险提示；连续定位通过 amapLocationManager:didFailWithError: 方法的error给出虚拟定位风险提示。error格式为error.domain==AMapLocationErrorDomain; error.code==AMapLocationErrorRiskOfFakeLocation;
+        [self.locationManager setDetectRiskOfFakeLocation: [args[@"detectRiskOfFakeLocation"] boolValue ]];
         
         return YES;
 
@@ -94,7 +136,8 @@
 }
 
 -(void)getLocation:(BOOL)withReGeocode result:(FlutterResult)result{
-    [self.locationManager requestLocationWithReGeocode:withReGeocode completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error){
+    
+    self.completionBlock = ^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error){
         
         if (error != nil && error.code == AMapLocationErrorLocateFailed)
         {
@@ -140,7 +183,10 @@
         
         result(md);
         
-    }];
+    };
+    [self.locationManager requestLocationWithReGeocode:withReGeocode completionBlock:self.completionBlock];
+    
+ //   [self.locationManager startUpdatingLocation];
 }
 
 
@@ -202,7 +248,12 @@
  */
 - (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location reGeocode:(AMapLocationReGeocode *)reGeocode{
     
+    NSMutableDictionary* md = [[NSMutableDictionary alloc]initWithDictionary: [AmapLocationPlugin location2map:location]  ];
+    if(reGeocode){
+        [md addEntriesFromDictionary:[ AmapLocationPlugin regeocode2map:reGeocode ]];
+    }
     
+    [self.channel invokeMethod:@"updateLocation" arguments:md];
     
 }
 
@@ -224,6 +275,15 @@
  *  @param error 返回的错误，参考 CLError 。
  */
 - (void)amapLocationManager:(AMapLocationManager *)manager didFailWithError:(NSError *)error{
+    
+    NSLog(@"定位错误:{%ld - %@};", (long)error.code, error.localizedDescription);
+
+    
+    
+    [self.channel invokeMethod:@"updateLocation" arguments:@{ @"code":@(error.code),@"description":error.localizedDescription }];
+
+    
+
     
 }
 @end

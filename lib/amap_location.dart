@@ -58,6 +58,8 @@ class AMapLocation{
    */
   final String provider;
 
+  final int locationType;
+
 
   AMapLocation({
     this.description,
@@ -80,6 +82,7 @@ class AMapLocation{
     this.provider,
     this.province,
     this.street,
+    this.locationType
 });
 
 
@@ -105,12 +108,29 @@ class AMapLocation{
       POIName: map["POIName"],
       provider: map["provider"],
       province: map["province"],
-      street: map["street"]
+      street: map["street"],
+      locationType: map["locationType"],
 
 
 
     );
   }
+
+  /**
+   * 是否成功，单纯从经纬度来判断
+   */
+  bool isSuccess() {
+    return latitude!=null;
+  }
+
+  /**
+   * 是否有详细地址
+   */
+  bool hasAddress(){
+    return formattedAddress!=null;
+  }
+
+
 
 }
 
@@ -132,6 +152,14 @@ class AMapLocationClient {
   static Stream<AMapLocation> get onLocationUpate => _locationUpdateStreamController.stream;
 
   /**
+   * 设置ios的key，android可以直接在配置文件中设置
+   */
+  static Future<bool> setApiKey(String key) async{
+    return await _channel.invokeMethod("setApiKey",key);
+  }
+
+
+  /**
    * 直接获取到定位，不必先启用监听
    *
    * @param needsAddress 是否需要详细地址信息
@@ -147,8 +175,11 @@ class AMapLocationClient {
    * @param options 启动系统所需选项
    */
   static Future<bool> startup(AMapLocationOption option) async{
+    _channel.setMethodCallHandler(handler);
     return await _channel.invokeMethod("startup",option.toMap());
   }
+
+
 
   /**
    * 更新选项，如果已经在监听，那么要先停止监听，再调用这个函数
@@ -174,6 +205,23 @@ class AMapLocationClient {
    */
   static Future<bool> stopLocation() async{
     return await _channel.invokeMethod("stopLocation");
+  }
+
+
+
+  static Future<dynamic> handler(MethodCall call){
+    String method = call.method;
+
+    switch(method){
+      case "updateLocation":
+        {
+          Map args = call.arguments;
+          _locationUpdateStreamController.add(AMapLocation.fromMap(args));
+        }
+        break;
+    }
+    return new Future.value("");
+
   }
 
 }

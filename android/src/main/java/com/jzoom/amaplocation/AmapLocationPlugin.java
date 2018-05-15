@@ -75,6 +75,8 @@ public class AmapLocationPlugin implements MethodCallHandler, AMapLocationListen
             result.success(this.stopLocation());
         } else if("updateOption".equals(method)){
             result.success(this.updateOption((Map) call.arguments));
+        } else if("setApiKey".equals(method)){
+            result.success(false);
         } else {
             result.notImplemented();
         }
