@@ -1,11 +1,20 @@
 PODS:
   - amap_location (0.0.1):
+    - AMapLocation
     - Flutter
+  - AMapFoundation (1.4.3)
+  - AMapLocation (2.6.0):
+    - AMapFoundation (~> 1.4)
   - Flutter (1.0.0)
 
 DEPENDENCIES:
   - amap_location (from `Pods/.symlinks/plugins/amap_location/ios`)
   - Flutter (from `Pods/.symlinks/flutter/ios`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AMapFoundation
+    - AMapLocation
 
 EXTERNAL SOURCES:
   amap_location:
@@ -14,7 +23,9 @@ EXTERNAL SOURCES:
     :path: Pods/.symlinks/flutter/ios
 
 SPEC CHECKSUMS:
-  amap_location: b50ee77a0ea453c37af92be5000c62b78e9ab976
+  amap_location: d2e6d9a751237c0fd41d2a191a87f7e3495fce49
+  AMapFoundation: 973682cfe60b92efd73a8ef8f1144fa0fa8e1296
+  AMapLocation: 55116a2c8956eab7550cbb56e989aa5cdcc424e3
   Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
 
 PODFILE CHECKSUM: 13dcf421f4da2e937a57e8ba760ed880beae536f

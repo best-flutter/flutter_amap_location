@@ -58,8 +58,58 @@ class AMapLocation{
    */
   final String provider;
 
+
+  AMapLocation({
+    this.description,
+    this.code,
+    this.timestamp,
+    this.speed,
+    this.altitude,
+    this.longitude,
+    this.latitude,
+    this.accuracy,
+    this.adcode,
+    this.AOIName,
+    this.city,
+    this.citycode,
+    this.country,
+    this.district,
+    this.formattedAddress,
+    this.number,
+    this.POIName,
+    this.provider,
+    this.province,
+    this.street,
+});
+
+
+
   static AMapLocation fromMap(dynamic map){
-    return new AMapLocation();
+    return new AMapLocation(
+      description: map["description"],
+      code: map["code"],
+      timestamp: map["timestamp"],
+      speed: map["speed"],
+      altitude: map["altitude"],
+      longitude: map["longitude"],
+      latitude: map["latitude"],
+      accuracy: map["accuracy"],
+      adcode: map["adcode"],
+      AOIName: map["AOIName"],
+      city: map["city"],
+      citycode: map["citycode"],
+      country: map["country"],
+      district: map["district"],
+      formattedAddress: map["formattedAddress"],
+      number: map["number"],
+      POIName: map["POIName"],
+      provider: map["provider"],
+      province: map["province"],
+      street: map["street"]
+
+
+
+    );
   }
 
 }
@@ -100,6 +150,13 @@ class AMapLocationClient {
     return await _channel.invokeMethod("startup",option.toMap());
   }
 
+  /**
+   * 更新选项，如果已经在监听，那么要先停止监听，再调用这个函数
+   *
+   */
+  static Future<bool> updateOption(AMapLocationOption option) async{
+    return await _channel.invokeMethod("updateOption",option);
+  }
 
   static Future<bool> shutdown() async{
     return await _channel.invokeMethod("shutdown");
