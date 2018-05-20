@@ -2,11 +2,10 @@ import 'dart:async';
 
 export 'amap_location_option.dart';
 
-
 import 'package:flutter/services.dart';
 import 'amap_location_option.dart';
 
-class AMapLocationQualityReport{
+class AMapLocationQualityReport {
   static final int GPS_STATUS_OK = 0;
   static final int GPS_STATUS_NOGPSPROVIDER = 1;
   static final int GPS_STATUS_OFF = 2;
@@ -24,11 +23,9 @@ class AMapLocationQualityReport{
   final double netUseTime;
 
   final String adviseMessage;
-
 }
 
-class AMapLocation{
-
+class AMapLocation {
   final double accuracy;
   final double altitude;
   final double speed;
@@ -47,7 +44,6 @@ class AMapLocation{
   final String number;
   final String POIName;
   final String AOIName;
-
 
   /**
    *
@@ -103,60 +99,54 @@ class AMapLocation{
 
   final int locationType;
 
+  AMapLocation(
+      {this.description,
+      this.code,
+      this.timestamp,
+      this.speed,
+      this.altitude,
+      this.longitude,
+      this.latitude,
+      this.accuracy,
+      this.adcode,
+      this.AOIName,
+      this.city,
+      this.citycode,
+      this.country,
+      this.district,
+      this.formattedAddress,
+      this.number,
+      this.POIName,
+      this.provider,
+      this.province,
+      this.street,
+      this.locationType,
+      this.success});
 
-  AMapLocation({
-    this.description,
-    this.code,
-    this.timestamp,
-    this.speed,
-    this.altitude,
-    this.longitude,
-    this.latitude,
-    this.accuracy,
-    this.adcode,
-    this.AOIName,
-    this.city,
-    this.citycode,
-    this.country,
-    this.district,
-    this.formattedAddress,
-    this.number,
-    this.POIName,
-    this.provider,
-    this.province,
-    this.street,
-    this.locationType,
-    this.success
-});
-
-
-
-  static AMapLocation fromMap(dynamic map){
+  static AMapLocation fromMap(dynamic map) {
     return new AMapLocation(
-      description: map["description"],
-      code: map["code"],
-      timestamp: map["timestamp"],
-      speed: map["speed"],
-      altitude: map["altitude"],
-      longitude: map["longitude"],
-      latitude: map["latitude"],
-      accuracy: map["accuracy"],
-      adcode: map["adcode"],
-      AOIName: map["AOIName"],
-      city: map["city"],
-      citycode: map["citycode"],
-      country: map["country"],
-      district: map["district"],
-      formattedAddress: map["formattedAddress"],
-      number: map["number"],
-      POIName: map["POIName"],
-      provider: map["provider"],
-      province: map["province"],
-      street: map["street"],
-      locationType: map["locationType"],
-      success: map["success"]
-
-    );
+        description: map["description"],
+        code: map["code"],
+        timestamp: map["timestamp"],
+        speed: map["speed"],
+        altitude: map["altitude"],
+        longitude: map["longitude"],
+        latitude: map["latitude"],
+        accuracy: map["accuracy"],
+        adcode: map["adcode"],
+        AOIName: map["AOIName"],
+        city: map["city"],
+        citycode: map["citycode"],
+        country: map["country"],
+        district: map["district"],
+        formattedAddress: map["formattedAddress"],
+        number: map["number"],
+        POIName: map["POIName"],
+        provider: map["provider"],
+        province: map["province"],
+        street: map["street"],
+        locationType: map["locationType"],
+        success: map["success"]);
   }
 
   /**
@@ -170,38 +160,29 @@ class AMapLocation{
   /**
    * 是否有详细地址
    */
-  bool hasAddress(){
-    return formattedAddress!=null;
+  bool hasAddress() {
+    return formattedAddress != null;
   }
-
-
-
 }
-
-
-
-
-
 
 class AMapLocationClient {
   static const MethodChannel _channel = const MethodChannel('amap_location');
 
-
-  static StreamController<AMapLocation> _locationUpdateStreamController = new StreamController.broadcast();
-
+  static StreamController<AMapLocation> _locationUpdateStreamController =
+      new StreamController.broadcast();
 
   /**
    * 定位改变监听
    */
-  static Stream<AMapLocation> get onLocationUpate => _locationUpdateStreamController.stream;
+  static Stream<AMapLocation> get onLocationUpate =>
+      _locationUpdateStreamController.stream;
 
   /**
    * 设置ios的key，android可以直接在配置文件中设置
    */
-  static Future<bool> setApiKey(String key) async{
-    return await _channel.invokeMethod("setApiKey",key);
+  static Future<bool> setApiKey(String key) async {
+    return await _channel.invokeMethod("setApiKey", key);
   }
-
 
   /**
    * 直接获取到定位，不必先启用监听
@@ -209,7 +190,8 @@ class AMapLocationClient {
    * @param needsAddress 是否需要详细地址信息
    */
   static Future<AMapLocation> getLocation(bool needsAddress) async {
-    final dynamic location = await _channel.invokeMethod('getLocation',needsAddress);
+    final dynamic location =
+        await _channel.invokeMethod('getLocation', needsAddress);
     return AMapLocation.fromMap(location);
   }
 
@@ -218,45 +200,41 @@ class AMapLocationClient {
    *
    * @param options 启动系统所需选项
    */
-  static Future<bool> startup(AMapLocationOption option) async{
+  static Future<bool> startup(AMapLocationOption option) async {
     _channel.setMethodCallHandler(handler);
-    return await _channel.invokeMethod("startup",option.toMap());
+    return await _channel.invokeMethod("startup", option.toMap());
   }
-
-
 
   /**
    * 更新选项，如果已经在监听，那么要先停止监听，再调用这个函数
    *
    */
-  static Future<bool> updateOption(AMapLocationOption option) async{
-    return await _channel.invokeMethod("updateOption",option);
+  static Future<bool> updateOption(AMapLocationOption option) async {
+    return await _channel.invokeMethod("updateOption", option);
   }
 
-  static Future<bool> shutdown() async{
+  static Future<bool> shutdown() async {
     return await _channel.invokeMethod("shutdown");
   }
 
   /**
    * 启动监听位置改变
    */
-  static Future<bool> startLocation() async{
+  static Future<bool> startLocation() async {
     return await _channel.invokeMethod("startLocation");
   }
 
   /**
    * 停止监听位置改变
    */
-  static Future<bool> stopLocation() async{
+  static Future<bool> stopLocation() async {
     return await _channel.invokeMethod("stopLocation");
   }
 
-
-
-  static Future<dynamic> handler(MethodCall call){
+  static Future<dynamic> handler(MethodCall call) {
     String method = call.method;
 
-    switch(method){
+    switch (method) {
       case "updateLocation":
         {
           Map args = call.arguments;
@@ -265,7 +243,5 @@ class AMapLocationClient {
         break;
     }
     return new Future.value("");
-
   }
-
 }

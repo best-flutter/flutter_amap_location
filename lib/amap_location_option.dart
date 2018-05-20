@@ -1,33 +1,24 @@
-
 import 'dart:io';
 
 /**
  * android网络传输http还是https协议
  */
-enum AMapLocationProtocol{
-  HTTP,HTTPS
-}
+enum AMapLocationProtocol { HTTP, HTTPS }
 
 /**
  * android 逆地理位置信息的语言
  */
-enum GeoLanguage{
-  DEFAULT,ZH,EN
-}
+enum GeoLanguage { DEFAULT, ZH, EN }
 
 /**
  * android 定位模式
  */
-enum AMapLocationMode{
-  Battery_Saving,
-  Device_Sensors,
-  Hight_Accuracy
-}
+enum AMapLocationMode { Battery_Saving, Device_Sensors, Hight_Accuracy }
 
 /**
  * ios定位精度
  */
-enum CLLocationAccuracy{
+enum CLLocationAccuracy {
   kCLLocationAccuracyBest,
   kCLLocationAccuracyNearestTenMeters,
   kCLLocationAccuracyHundredMeters,
@@ -35,8 +26,7 @@ enum CLLocationAccuracy{
   kCLLocationAccuracyThreeKilometers
 }
 
-class AMapLocationOption{
-
+class AMapLocationOption {
   /**
    * 以下属性为android特有
    */
@@ -73,7 +63,6 @@ class AMapLocationOption{
 
   //可选，设置是否使用缓存定位，默认为true
   final bool locationCacheEnable;
-
 
   /**
    * 以下属性为ios特有
@@ -115,9 +104,7 @@ class AMapLocationOption{
   ///设定定位的最小更新距离。单位米，默认为 kCLDistanceFilterNone，表示只要检测到设备位置发生变化就会更新位置信息。
   final double distanceFilter;
 
-
   static final double kCLDistanceFilterNone = -1.0;
-
 
   /**
    * 以下为通用属性
@@ -126,39 +113,35 @@ class AMapLocationOption{
   final GeoLanguage geoLanguage;
 
   AMapLocationOption({
-    this.locationMode : AMapLocationMode.Hight_Accuracy,
-    this.gpsFirst:false,
-    this.httpTimeOut:10000,             //30有点长，特殊情况才需要这么长，改成10
-    this.interval:2000,
-    this.needsAddress : true,
-    this.onceLocation : false,
-    this.onceLocationLatest : false,
-    this.locationProtocal : AMapLocationProtocol.HTTP,
-    this.sensorEnable : false,
-    this.wifiScan : true,
-    this.locationCacheEnable : true,
-
-    this.allowsBackgroundLocationUpdates : false,
-    this.desiredAccuracy : CLLocationAccuracy.kCLLocationAccuracyBest, //精度越高，时间越久
-    this.locatingWithReGeocode : false,
-    this.locationTimeout : 5,     //注意这里的单位为秒
-    this.pausesLocationUpdatesAutomatically : false,
-    this.reGeocodeTimeout : 5,     //注意ios的时间单位是秒
-    this.detectRiskOfFakeLocation:false,
-    this.distanceFilter : -1.0,
-    this.geoLanguage : GeoLanguage.DEFAULT,
-
-
-
+    this.locationMode: AMapLocationMode.Hight_Accuracy,
+    this.gpsFirst: false,
+    this.httpTimeOut: 10000, //30有点长，特殊情况才需要这么长，改成10
+    this.interval: 2000,
+    this.needsAddress: true,
+    this.onceLocation: false,
+    this.onceLocationLatest: false,
+    this.locationProtocal: AMapLocationProtocol.HTTP,
+    this.sensorEnable: false,
+    this.wifiScan: true,
+    this.locationCacheEnable: true,
+    this.allowsBackgroundLocationUpdates: false,
+    this.desiredAccuracy:
+        CLLocationAccuracy.kCLLocationAccuracyBest, //精度越高，时间越久
+    this.locatingWithReGeocode: false,
+    this.locationTimeout: 5, //注意这里的单位为秒
+    this.pausesLocationUpdatesAutomatically: false,
+    this.reGeocodeTimeout: 5, //注意ios的时间单位是秒
+    this.detectRiskOfFakeLocation: false,
+    this.distanceFilter: -1.0,
+    this.geoLanguage: GeoLanguage.DEFAULT,
   });
 
-  String getLocationProtocal(){
-    return locationProtocal==AMapLocationProtocol.HTTP ? "HTTP" : "HTTPS";
+  String getLocationProtocal() {
+    return locationProtocal == AMapLocationProtocol.HTTP ? "HTTP" : "HTTPS";
   }
 
-
-  String getGeoLanguage(){
-    switch(geoLanguage){
+  String getGeoLanguage() {
+    switch (geoLanguage) {
       case GeoLanguage.DEFAULT:
         return "DEFAULT";
       case GeoLanguage.EN:
@@ -168,12 +151,10 @@ class AMapLocationOption{
     }
   }
 
-
-
-  String getLocationMode(){
-    switch(locationMode){
+  String getLocationMode() {
+    switch (locationMode) {
       case AMapLocationMode.Hight_Accuracy:
-          return "Hight_Accuracy";
+        return "Hight_Accuracy";
       case AMapLocationMode.Battery_Saving:
         return "Battery_Saving";
       case AMapLocationMode.Device_Sensors:
@@ -181,9 +162,8 @@ class AMapLocationOption{
     }
   }
 
-
   String getDesiredAccuracy() {
-    switch(desiredAccuracy){
+    switch (desiredAccuracy) {
       case CLLocationAccuracy.kCLLocationAccuracyBest:
         return "kCLLocationAccuracyBest";
       case CLLocationAccuracy.kCLLocationAccuracyHundredMeters:
@@ -197,40 +177,35 @@ class AMapLocationOption{
     }
   }
 
-  Map toMap(){
-    if(Platform.isAndroid){
+  Map toMap() {
+    if (Platform.isAndroid) {
       return {
-        "locationMode":getLocationMode(),
-        "gpsFirst":gpsFirst,
-        "httpTimeOut":httpTimeOut,
-        "interval":interval,
-        "needsAddress":needsAddress,
-        "onceLocation":onceLocation,
-        "onceLocationLatest":onceLocationLatest,
-        "locationProtocal":getLocationProtocal(),
-        "sensorEnable":sensorEnable,
-        "wifiScan":wifiScan,
-        "locationCacheEnable":locationCacheEnable,
-        "geoLanguage":getGeoLanguage()
+        "locationMode": getLocationMode(),
+        "gpsFirst": gpsFirst,
+        "httpTimeOut": httpTimeOut,
+        "interval": interval,
+        "needsAddress": needsAddress,
+        "onceLocation": onceLocation,
+        "onceLocationLatest": onceLocationLatest,
+        "locationProtocal": getLocationProtocal(),
+        "sensorEnable": sensorEnable,
+        "wifiScan": wifiScan,
+        "locationCacheEnable": locationCacheEnable,
+        "geoLanguage": getGeoLanguage()
       };
-    }else{
-
+    } else {
       return {
-        "allowsBackgroundLocationUpdates":allowsBackgroundLocationUpdates,
-        "desiredAccuracy":getDesiredAccuracy(),
-        "locatingWithReGeocode":locatingWithReGeocode,
-        "locationTimeout":locationTimeout,
-        "pausesLocationUpdatesAutomatically":pausesLocationUpdatesAutomatically,
-        "reGeocodeTimeout":reGeocodeTimeout,
-        "detectRiskOfFakeLocation":detectRiskOfFakeLocation,
-        "distanceFilter":distanceFilter,
-        "geoLanguage":getGeoLanguage()
-
+        "allowsBackgroundLocationUpdates": allowsBackgroundLocationUpdates,
+        "desiredAccuracy": getDesiredAccuracy(),
+        "locatingWithReGeocode": locatingWithReGeocode,
+        "locationTimeout": locationTimeout,
+        "pausesLocationUpdatesAutomatically":
+            pausesLocationUpdatesAutomatically,
+        "reGeocodeTimeout": reGeocodeTimeout,
+        "detectRiskOfFakeLocation": detectRiskOfFakeLocation,
+        "distanceFilter": distanceFilter,
+        "geoLanguage": getGeoLanguage()
       };
     }
-
   }
-
-
-
 }
