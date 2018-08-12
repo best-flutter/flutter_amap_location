@@ -145,7 +145,7 @@ public class AmapLocationPlugin implements MethodCallHandler, AMapLocationListen
                 map.put("formattedAddress",a.getAddress());
                 map.put("country",a.getCountry());
                 map.put("province",a.getProvince());
-                map.put("city",a.getCountry());
+                map.put("city",a.getCity());
                 map.put("district",a.getDistrict());
                 map.put("citycode",a.getCityCode());
                 map.put("adcode",a.getAdCode());

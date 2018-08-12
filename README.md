@@ -93,7 +93,7 @@ import 'package:amap_location/amap_location.dart';
 
 ```
 dependencies:
-  amap_location: "^0.0.1"
+  amap_location: 
 ```
 
 
