@@ -23,6 +23,16 @@ class AMapLocationQualityReport {
   final double netUseTime;
 
   final String adviseMessage;
+  
+  AMapLocationQualityReport({
+    this.wifiAble,
+    this.gpsStatus,
+    this.gpsSatellites,
+    this.networkType,
+    this.netUseTime,
+    this.adviseMessage,
+  });
+
 }
 
 class AMapLocation {
