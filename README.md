@@ -17,6 +17,10 @@
 
 注意：随着flutter版本的提升， 本项目也会随之更新，
 
+
+如果有疑问或者对这个库感兴趣，可以加qq群:854192563一起探讨
+
+
 ## Getting Started
 
 ### 集成高德地图定位android版本
@@ -155,6 +159,8 @@ void _checkPersmission() async{
     AMapLocationClient.startLocation();
   }
 ```
+
+
 
 
 ## 特性
