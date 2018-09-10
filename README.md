@@ -24,49 +24,23 @@
 1、先申请一个apikey
 http://lbs.amap.com/api/android-sdk/guide/create-project/get-key
 
-2、在AndroidManifest.xml中增加
-```
- <meta-data
-            android:name="com.amap.api.v2.apikey"
-            android:value="你的Key" />
-```
-
-3、增加对应的权限：
+2、修改 你的项目目录/app/build.gradle
+在android/defaultConfig节点修改manifestPlaceholders,新增高德地图key配置
 
 ```
-    <!-- Normal Permissions 不需要运行时注册 -->
-    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
+android {
+    .... 你的代码
 
-    <!-- 请求网络 -->
-    <uses-permission android:name="android.permission.INTERNET"/>
+    defaultConfig {
+        .....
+        manifestPlaceholders = [
+                AMAP_KEY : "aa9f0cf8574400f2af0078392c556e25", /// 高德地图key
+        ]
 
-    <!-- 不是SDK需要的权限，是示例中的后台唤醒定位需要的权限 -->
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    }
 
-    <!-- 需要运行时注册的权限 -->
-    <!-- 用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <!-- 用于访问GPS定位 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <!-- 用于提高GPS定位速度 -->
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
-    <!-- 写入扩展存储，向扩展卡写入数据，用于写入缓存定位数据 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <!-- 读取缓存数据 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+```
 
-    <!-- 用于读取手机当前的状态 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-
-    <!-- 更改设置 -->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
-```      
 
 ### 集成高德地图定位ios版本
 
@@ -85,6 +59,9 @@ import 'package:amap_location/amap_location.dart';
 ```
 
 2、在info.plist中增加:
+
+注意必须要描述清楚app使用定位的目的，苹果审核的时候要看，
+如果写的不清楚，可能会被苹果拒绝上架，作者有过几次惨痛经历 :(
 
 ```
 <key>NSLocationWhenInUseUsageDescription</key>

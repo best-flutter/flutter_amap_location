@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'amap_location_option.dart';
 
 class AMapLocationQualityReport {
-
   static const int ok = 0;
   static const int noGpsProvider = 1;
   static const int off = 2;
