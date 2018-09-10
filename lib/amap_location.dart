@@ -6,11 +6,12 @@ import 'package:flutter/services.dart';
 import 'amap_location_option.dart';
 
 class AMapLocationQualityReport {
-  static const int GPS_STATUS_OK = 0;
-  static const int GPS_STATUS_NOGPSPROVIDER = 1;
-  static const int GPS_STATUS_OFF = 2;
-  static const int GPS_STATUS_MODE_SAVING = 3;
-  static const int GPS_STATUS_NOGPSPERMISSION = 4;
+
+  static const int ok = 0;
+  static const int noGpsProvider = 1;
+  static const int off = 2;
+  static const int modeSaving = 3;
+  static const int noGpsPermission = 4;
 
   final bool wifiAble;
 
