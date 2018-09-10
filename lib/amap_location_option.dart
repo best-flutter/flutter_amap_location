@@ -1,23 +1,15 @@
 import 'dart:io';
 
-/**
- * android网络传输http还是https协议
- */
+/// android网络传输http还是https协议
 enum AMapLocationProtocol { HTTP, HTTPS }
 
-/**
- * android 逆地理位置信息的语言
- */
+/// android 逆地理位置信息的语言
 enum GeoLanguage { DEFAULT, ZH, EN }
 
-/**
- * android 定位模式
- */
+/// android 定位模式
 enum AMapLocationMode { Battery_Saving, Device_Sensors, Hight_Accuracy }
 
-/**
- * ios定位精度
- */
+/// ios定位精度
 enum CLLocationAccuracy {
   kCLLocationAccuracyBest,
   kCLLocationAccuracyNearestTenMeters,
@@ -27,9 +19,9 @@ enum CLLocationAccuracy {
 }
 
 class AMapLocationOption {
-  /**
-   * 以下属性为android特有
-   */
+  ////////////////////////////////////////////////////////////
+  ///  以下属性为android特有
+////////////////////////////////////////////////////////////
 
   //可选，设置定位模式，可选的模式有高精度、仅设备、仅网络。默认为高精度模式
   final AMapLocationMode locationMode;
@@ -64,9 +56,9 @@ class AMapLocationOption {
   //可选，设置是否使用缓存定位，默认为true
   final bool locationCacheEnable;
 
-  /**
-   * 以下属性为ios特有
-   */
+  ////////////////////////////////////////////////////////////
+  ///以下属性为ios特有
+  ////////////////////////////////////////////////////////////
   ///设定期望的定位精度。单位米，默认为 kCLLocationAccuracyBest。
   ///定位服务会尽可能去获取满足desiredAccuracy的定位结果，但不保证一定会得到满足期望的结果。
   ///\n注意：设置为kCLLocationAccuracyBest或kCLLocationAccuracyBestForNavigation时，
@@ -106,9 +98,9 @@ class AMapLocationOption {
 
   static final double kCLDistanceFilterNone = -1.0;
 
-  /**
-   * 以下为通用属性
-   */
+  ////////////////////////////////////////////////////////////
+  /// 以下为通用属性
+  ////////////////////////////////////////////////////////////
   //可选，设置逆地理信息的语言，默认值为默认语言（根据所在地区选择语言)
   final GeoLanguage geoLanguage;
 

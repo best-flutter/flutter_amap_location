@@ -1,3 +1,9 @@
+
+<p align="center">
+    <a href="https://pub.dartlang.org/packages/amap_location">
+        <img src="https://img.shields.io/pub/v/amap_location.svg" alt="pub package" />
+    </a>
+</p>
 # flutter_amap_location
 
 

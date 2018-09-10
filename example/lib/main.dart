@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:amap_location/amap_location.dart';
 import 'package:async_loader/async_loader.dart';
 
@@ -137,14 +136,12 @@ class _HomeState extends State<Home> {
   }
 
   List<Widget> render(BuildContext context, List children) {
-    return ListTile
-        .divideTiles(
-            context: context,
-            tiles: children.map((dynamic data) {
-              return buildListTile(
-                  context, data["title"], data["subtitle"], data["url"]);
-            }))
-        .toList();
+    return ListTile.divideTiles(
+        context: context,
+        tiles: children.map((dynamic data) {
+          return buildListTile(
+              context, data["title"], data["subtitle"], data["url"]);
+        })).toList();
   }
 
   Widget buildListTile(
