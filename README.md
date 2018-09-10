@@ -24,8 +24,8 @@
 1、先申请一个apikey
 http://lbs.amap.com/api/android-sdk/guide/create-project/get-key
 
-2、修改 你的项目目录/app/build.gradle
-在android/defaultConfig节点修改manifestPlaceholders,新增高德地图key配置
+2、修改 `你的项目目录/app/build.gradle`
+在`android/defaultConfig`节点修改`manifestPlaceholders`,新增高德地图key配置
 
 ```
 android {
