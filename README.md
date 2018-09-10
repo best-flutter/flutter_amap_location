@@ -7,9 +7,9 @@
 # flutter_amap_location
 
 
-![android preview](https://github.com/jzoom/flutter_amap_location/raw/master/res/QQ20180515-200012.gif)
+![android preview](https://github.com/jzoom/images/raw/master/location1.gif)
 
-![ios preview](https://github.com/jzoom/flutter_amap_location/raw/master/res/QQ20180515-200733.gif)
+![ios preview](https://github.com/jzoom/images/raw/master/location2.gif)
 
 高德地图定位flutter组件。
 
