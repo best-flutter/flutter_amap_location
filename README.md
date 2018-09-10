@@ -129,6 +129,34 @@ AMapLocationClient.stopLocation();
 ```
 
 
+## 注意点：
+
+>在android6以上最好手动获取定位权限
+
+在example中以simple_permissions这个库为例:
+
+```
+void _checkPersmission() async{
+    bool hasPermission = await SimplePermissions.checkPermission(Permission.WhenInUseLocation);
+    if(!hasPermission){
+      bool requestPermissionResult = await SimplePermissions.requestPermission(Permission.WhenInUseLocation);
+      if(!requestPermissionResult){
+        Alert.alert(context,title: "申请定位权限失败");
+        return;
+      }
+    }
+    AMapLocationClient.onLocationUpate.listen((AMapLocation loc) {
+      if (!mounted) return;
+      setState(() {
+        location = getLocationStr(loc);
+      });
+    });
+
+    AMapLocationClient.startLocation();
+  }
+```
+
+
 ## 特性
 
 * IOS

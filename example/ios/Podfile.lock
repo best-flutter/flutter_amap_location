@@ -23,7 +23,7 @@ EXTERNAL SOURCES:
     :path: Pods/.symlinks/flutter/ios
 
 SPEC CHECKSUMS:
-  amap_location: d2e6d9a751237c0fd41d2a191a87f7e3495fce49
+  amap_location: 9e08bb8d18766285ad82b22b639ff6fe0e79891f
   AMapFoundation: 973682cfe60b92efd73a8ef8f1144fa0fa8e1296
   AMapLocation: 55116a2c8956eab7550cbb56e989aa5cdcc424e3
   Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296

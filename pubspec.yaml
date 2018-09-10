@@ -7,7 +7,8 @@ homepage: https://github.com/jzoom/flutter_amap_location
 dependencies:
   flutter:
     sdk: flutter
-
+  simple_permissions:
+  easy_alert:
 
 environment:
   sdk: ">=2.0.0-dev.48.0 <3.0.0"
