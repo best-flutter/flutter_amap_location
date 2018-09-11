@@ -29,6 +29,11 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+
+        manifestPlaceholders = [
+                AMAP_KEY : "aa9f0cf8574400f2af0078392c556e25", /// 高德地图key
+        ]
     }
 
     signingConfigs {
