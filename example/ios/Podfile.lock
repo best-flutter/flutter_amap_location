@@ -2,14 +2,17 @@ PODS:
   - amap_location (0.0.1):
     - AMapLocation
     - Flutter
-  - AMapFoundation (1.4.3)
-  - AMapLocation (2.6.0):
+  - AMapFoundation (1.5.5)
+  - AMapLocation (2.6.1):
     - AMapFoundation (~> 1.4)
   - Flutter (1.0.0)
+  - simple_permissions (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - amap_location (from `Pods/.symlinks/plugins/amap_location/ios`)
   - Flutter (from `Pods/.symlinks/flutter/ios`)
+  - simple_permissions (from `Pods/.symlinks/plugins/simple_permissions/ios`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -21,13 +24,16 @@ EXTERNAL SOURCES:
     :path: Pods/.symlinks/plugins/amap_location/ios
   Flutter:
     :path: Pods/.symlinks/flutter/ios
+  simple_permissions:
+    :path: Pods/.symlinks/plugins/simple_permissions/ios
 
 SPEC CHECKSUMS:
-  amap_location: 9e08bb8d18766285ad82b22b639ff6fe0e79891f
-  AMapFoundation: 973682cfe60b92efd73a8ef8f1144fa0fa8e1296
-  AMapLocation: 55116a2c8956eab7550cbb56e989aa5cdcc424e3
+  amap_location: 738b2c0fb7c62b26af20ebc65018b7bdc0bd7a6d
+  AMapFoundation: 652bd70ba579f48a98bdf0c74d6e62a89a06ca58
+  AMapLocation: cf024b53dc03663efb4ea4bcce27d4cce58bb97a
   Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
+  simple_permissions: 8ea52208b437f8fae29d97a55fe00b705a53246b
 
-PODFILE CHECKSUM: 13dcf421f4da2e937a57e8ba760ed880beae536f
+PODFILE CHECKSUM: 72256cd706f9454e8d38fc569b4d0ca153389827
 
-COCOAPODS: 1.5.2
+COCOAPODS: 1.5.3
