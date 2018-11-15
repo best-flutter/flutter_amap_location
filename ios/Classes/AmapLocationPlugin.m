@@ -192,6 +192,10 @@ static NSDictionary* DesiredAccuracy = @{@"kCLLocationAccuracyBest":@(kCLLocatio
 }
 
 
++(id)checkNull:(NSObject*)value{
+    return value == nil ? [NSNull null] : value;
+}
+
 +(NSDictionary*)regeocode2map:(AMapLocationReGeocode *)regeocode{
     return @{@"formattedAddress":regeocode.formattedAddress,
              @"country":regeocode.country,
@@ -202,8 +206,8 @@ static NSDictionary* DesiredAccuracy = @{@"kCLLocationAccuracyBest":@(kCLLocatio
              @"adcode":regeocode.adcode,
              @"street":regeocode.street,
              @"number":regeocode.number,
-             @"POIName":regeocode.POIName,
-             @"AOIName":regeocode.AOIName,
+             @"POIName":[self checkNull : regeocode.POIName],
+             @"AOIName":[self checkNull :regeocode.AOIName],
              };
 }
 
