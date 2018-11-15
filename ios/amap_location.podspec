@@ -16,7 +16,7 @@ A Flutter plugin to use amap location.高德地图定位组件
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
   s.dependency 'AMapLocation'
-  
+  s.static_framework = true
   s.ios.deployment_target = '8.0'
 end
 
