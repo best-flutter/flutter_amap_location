@@ -18,7 +18,7 @@
 注意：随着flutter版本的提升， 本项目也会随之更新，
 
 
-感谢群友 ![@a396901990](https://github.com/a396901990) ,目前已经修复了因为使用simple_permissions导致ios不能编译使用的问题
+感谢群友 [@a396901990](https://github.com/a396901990) ,目前已经修复了因为使用simple_permissions导致ios不能编译使用的问题
 
 xcode10下如果出现 Multiple commands produce这个错误，参考这篇https://www.jianshu.com/p/8a8444acdca5,亲测可以解决。
 

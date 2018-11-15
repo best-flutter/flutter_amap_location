@@ -3,7 +3,6 @@ import 'package:amap_location/amap_location.dart';
 import 'package:simple_permissions/simple_permissions.dart';
 import 'package:easy_alert/easy_alert.dart';
 
-
 void main() {
   /*============*/
   //设置ios的key
@@ -23,8 +22,6 @@ void main() {
 }
 
 class _LocationGetState extends State {
-
-
   AMapLocation _loc;
 
   @override
@@ -34,17 +31,21 @@ class _LocationGetState extends State {
           title: new Text('直接获取定位'),
         ),
         body: new Center(
-            child:  _loc == null ? new Text("正在定位") : new Text("定位成功:${_loc.formattedAddress}"),
-        )
-        );
+          child: _loc == null
+              ? new Text("正在定位")
+              : new Text("定位成功:${_loc.formattedAddress}"),
+        ));
   }
 
-  void _checkPersmission() async{
-    bool hasPermission = await SimplePermissions.checkPermission(Permission.WhenInUseLocation);
-    if(!hasPermission){
-      PermissionStatus requestPermissionResult = await SimplePermissions.requestPermission(Permission.WhenInUseLocation);
-      if(requestPermissionResult != PermissionStatus.authorized){
-        Alert.alert(context,title: "申请定位权限失败");
+  void _checkPersmission() async {
+    bool hasPermission =
+        await SimplePermissions.checkPermission(Permission.WhenInUseLocation);
+    if (!hasPermission) {
+      PermissionStatus requestPermissionResult =
+          await SimplePermissions.requestPermission(
+              Permission.WhenInUseLocation);
+      if (requestPermissionResult != PermissionStatus.authorized) {
+        Alert.alert(context, title: "申请定位权限失败");
         return;
       }
     }
@@ -103,12 +104,16 @@ class _LocationListenState extends State {
           child: new Text(location),
         ));
   }
-  void _checkPersmission() async{
-    bool hasPermission = await SimplePermissions.checkPermission(Permission.WhenInUseLocation);
-    if(!hasPermission){
-      PermissionStatus requestPermissionResult = await SimplePermissions.requestPermission(Permission.WhenInUseLocation);
-      if(requestPermissionResult != PermissionStatus.authorized){
-        Alert.alert(context,title: "申请定位权限失败");
+
+  void _checkPersmission() async {
+    bool hasPermission =
+        await SimplePermissions.checkPermission(Permission.WhenInUseLocation);
+    if (!hasPermission) {
+      PermissionStatus requestPermissionResult =
+          await SimplePermissions.requestPermission(
+              Permission.WhenInUseLocation);
+      if (requestPermissionResult != PermissionStatus.authorized) {
+        Alert.alert(context, title: "申请定位权限失败");
         return;
       }
     }
@@ -119,9 +124,9 @@ class _LocationListenState extends State {
       });
     });
 
-
     AMapLocationClient.startLocation();
   }
+
   @override
   void initState() {
     location = getLocationStr(null);
