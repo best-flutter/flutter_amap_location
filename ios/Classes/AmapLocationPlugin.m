@@ -31,6 +31,10 @@ static NSDictionary* DesiredAccuracy = @{@"kCLLocationAccuracyBest":@(kCLLocatio
     AmapLocationPlugin* instance = [[AmapLocationPlugin alloc] init];
     instance.channel = channel;
     [registrar addMethodCallDelegate:instance channel:channel];
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
+    NSDictionary *data = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
+     NSString * amapKey = [data objectForKey:@"AMAP_KEY"];
+    [AMapServices sharedServices].apiKey = amapKey;
 }
 
 
