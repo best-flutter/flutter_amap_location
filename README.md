@@ -51,6 +51,15 @@ android {
 
     }
 
+    ...你的代码
+
+    dependencies {
+        /// 注意这里需要在主项目增加一条依赖，否则可能发生编译不通过的情况
+        implementation 'com.amap.api:location:latest.integration'
+        ...你的代码
+    }
+
+
 ```
 
 
