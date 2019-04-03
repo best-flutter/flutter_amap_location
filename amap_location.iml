@@ -11,10 +11,8 @@
       <excludeFolder url="file://$MODULE_DIR$/example/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/example/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/example/build" />
-      <excludeFolder url="file://$MODULE_DIR$/example/ios/Flutter/flutter_assets/packages" />
-      <excludeFolder url="file://$MODULE_DIR$/example/ios/Pods/.symlinks/plugins/amap_location/.dart_tool" />
-      <excludeFolder url="file://$MODULE_DIR$/example/ios/Pods/.symlinks/plugins/amap_location/.pub" />
-      <excludeFolder url="file://$MODULE_DIR$/example/ios/Pods/.symlinks/plugins/amap_location/build" />
+      <excludeFolder url="file://$MODULE_DIR$/example/ios/DerivedData/Runner/Build/Products/Debug-iphonesimulator/Runner.app/Frameworks/App.framework/flutter_assets/packages" />
+      <excludeFolder url="file://$MODULE_DIR$/example/ios/Flutter/App.framework/flutter_assets/packages" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Dart SDK" level="project" />
