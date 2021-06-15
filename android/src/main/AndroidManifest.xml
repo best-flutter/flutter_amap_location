@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <!-- 不是SDK需要的权限，是示例中的后台唤醒定位需要的权限 -->
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+<!--    <uses-permission android:name="android.permission.WAKE_LOCK"/>-->
 
     <!-- 需要运行时注册的权限 -->
     <!-- 用于进行网络定位 -->
@@ -28,10 +28,10 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <!-- 用于读取手机当前的状态 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+<!--    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>-->
 
     <!-- 更改设置 -->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+<!--    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>-->
 
 
     <application>
