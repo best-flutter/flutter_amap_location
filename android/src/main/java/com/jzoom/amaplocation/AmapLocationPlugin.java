@@ -27,8 +27,7 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
  */
 public class AmapLocationPlugin implements FlutterPlugin, MethodCallHandler, AMapLocationListener {
 
-
-    private Registrar registrar;
+    private Context context;
     private MethodChannel channel;
     private AMapLocationClientOption option;
     private AMapLocationClient locationClient;
@@ -36,8 +35,13 @@ public class AmapLocationPlugin implements FlutterPlugin, MethodCallHandler, AMa
     //备份至
     private boolean onceLocation;
 
+    private Context getApplicationContext(){
+        return context;
+    }
+
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
+        context = flutterPluginBinding.getApplicationContext()
         channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "amap_location");
         channel.setMethodCallHandler(this);
     }
