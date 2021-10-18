@@ -41,7 +41,7 @@ public class AmapLocationPlugin implements FlutterPlugin, MethodCallHandler, AMa
 
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
-        context = flutterPluginBinding.getApplicationContext()
+        context = flutterPluginBinding.getApplicationContext();
         channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "amap_location");
         channel.setMethodCallHandler(this);
     }
