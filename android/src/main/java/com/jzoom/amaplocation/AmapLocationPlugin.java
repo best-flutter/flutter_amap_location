@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
@@ -13,6 +15,7 @@ import com.amap.api.location.AMapLocationListener;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
@@ -22,7 +25,7 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
 /**
  * FlutterAmapLocationPlugin
  */
-public class AmapLocationPlugin implements MethodCallHandler, AMapLocationListener {
+public class AmapLocationPlugin implements FlutterPlugin, MethodCallHandler, AMapLocationListener {
 
 
     private Registrar registrar;
@@ -52,6 +55,17 @@ public class AmapLocationPlugin implements MethodCallHandler, AMapLocationListen
     public static void registerWith(Registrar registrar) {
         final MethodChannel channel = new MethodChannel(registrar.messenger(), "amap_location");
         channel.setMethodCallHandler(new AmapLocationPlugin(registrar,channel));
+    }
+
+    @Override
+    public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
+        channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "amap_location");
+        channel.setMethodCallHandler(this);
+    }
+
+    @Override
+    public void onDetachedFromEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
+        channel.setMethodCallHandler(null);
     }
 
     @Override
