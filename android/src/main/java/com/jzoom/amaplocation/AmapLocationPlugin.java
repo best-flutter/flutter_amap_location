@@ -36,6 +36,10 @@ public class AmapLocationPlugin implements FlutterPlugin, MethodCallHandler, AMa
     //备份至
     private boolean onceLocation;
 
+    public AmapLocationPlugin() {
+
+    }
+
     public AmapLocationPlugin(Registrar registrar, MethodChannel channel) {
         this.registrar = registrar;
         this.channel = channel;
