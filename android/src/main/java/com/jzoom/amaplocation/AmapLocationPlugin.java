@@ -219,18 +219,22 @@ public class AmapLocationPlugin implements FlutterPlugin, MethodCallHandler, AMa
     private boolean startup(Map arguments) {
         synchronized (this){
 
-            if(locationClient==null){
-                //初始化client
-                locationClient = new AMapLocationClient(getApplicationContext());
-                //设置定位参数
-                AMapLocationClientOption option = new AMapLocationClientOption();
-                parseOptions(option,arguments);
-                locationClient.setLocationOption(option);
+            try {
+                if (locationClient == null) {
+                    //初始化client
+                    locationClient = new AMapLocationClient(getApplicationContext());
+                    //设置定位参数
+                    AMapLocationClientOption option = new AMapLocationClientOption();
+                    parseOptions(option, arguments);
+                    locationClient.setLocationOption(option);
 
-                //将option保存一下
-                this.option = option;
+                    //将option保存一下
+                    this.option = option;
 
-                return true;
+                    return true;
+                }
+            } catch (Exception e) {
+                return false;
             }
 
             return false;
