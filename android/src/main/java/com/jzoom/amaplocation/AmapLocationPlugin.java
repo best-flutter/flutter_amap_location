@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
@@ -13,6 +15,7 @@ import com.amap.api.location.AMapLocationListener;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
@@ -22,10 +25,9 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
 /**
  * FlutterAmapLocationPlugin
  */
-public class AmapLocationPlugin implements MethodCallHandler, AMapLocationListener {
+public class AmapLocationPlugin implements FlutterPlugin, MethodCallHandler, AMapLocationListener {
 
-
-    private Registrar registrar;
+    private Context context;
     private MethodChannel channel;
     private AMapLocationClientOption option;
     private AMapLocationClient locationClient;
@@ -33,25 +35,20 @@ public class AmapLocationPlugin implements MethodCallHandler, AMapLocationListen
     //备份至
     private boolean onceLocation;
 
-    public AmapLocationPlugin(Registrar registrar, MethodChannel channel) {
-        this.registrar = registrar;
-        this.channel = channel;
-    }
-
-    private Activity getActivity(){
-        return registrar.activity();
-    }
-
     private Context getApplicationContext(){
-        return registrar.activity().getApplicationContext();
+        return context;
     }
 
-    /**
-     * Plugin registration.
-     */
-    public static void registerWith(Registrar registrar) {
-        final MethodChannel channel = new MethodChannel(registrar.messenger(), "amap_location");
-        channel.setMethodCallHandler(new AmapLocationPlugin(registrar,channel));
+    @Override
+    public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
+        context = flutterPluginBinding.getApplicationContext();
+        channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "amap_location");
+        channel.setMethodCallHandler(this);
+    }
+
+    @Override
+    public void onDetachedFromEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
+        channel.setMethodCallHandler(null);
     }
 
     @Override
@@ -222,18 +219,22 @@ public class AmapLocationPlugin implements MethodCallHandler, AMapLocationListen
     private boolean startup(Map arguments) {
         synchronized (this){
 
-            if(locationClient==null){
-                //初始化client
-                locationClient = new AMapLocationClient(getApplicationContext());
-                //设置定位参数
-                AMapLocationClientOption option = new AMapLocationClientOption();
-                parseOptions(option,arguments);
-                locationClient.setLocationOption(option);
+            try {
+                if (locationClient == null) {
+                    //初始化client
+                    locationClient = new AMapLocationClient(getApplicationContext());
+                    //设置定位参数
+                    AMapLocationClientOption option = new AMapLocationClientOption();
+                    parseOptions(option, arguments);
+                    locationClient.setLocationOption(option);
 
-                //将option保存一下
-                this.option = option;
+                    //将option保存一下
+                    this.option = option;
 
-                return true;
+                    return true;
+                }
+            } catch (Exception e) {
+                return false;
             }
 
             return false;

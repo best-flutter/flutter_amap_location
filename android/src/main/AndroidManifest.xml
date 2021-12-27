@@ -1,20 +1,24 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jzoom.amaplocation">
 
-    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
+    <!--允许访问网络，必选权限-->
+    <uses-permission android:name="android.permission.INTERNET" />  
 
-    <!-- 请求网络 -->
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <!--允许获取粗略位置，若用GPS实现定位小蓝点功能则必选-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> 
 
-    <!-- 不是SDK需要的权限，是示例中的后台唤醒定位需要的权限 -->
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <!--允许获取设备和运营商信息，用于问题排查和网络定位，若无gps但仍需实现定位小蓝点功能则此权限必选-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />    
 
+    <!--允许获取网络状态，用于网络定位，若无gps但仍需实现定位小蓝点功能则此权限必选-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />    
+
+    <!--允许获取wifi网络信息，用于网络定位，若无gps但仍需实现定位小蓝点功能则此权限必选-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> 
+
+    <!--允许获取wifi状态改变，用于网络定位，若无gps但仍需实现定位小蓝点功能则此权限必选-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> 
+    
     <!-- 需要运行时注册的权限 -->
     <!-- 用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -22,16 +26,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <!-- 用于提高GPS定位速度 -->
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
-    <!-- 写入扩展存储，向扩展卡写入数据，用于写入缓存定位数据 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <!-- 读取缓存数据 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
-    <!-- 用于读取手机当前的状态 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-
-    <!-- 更改设置 -->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
 
 
     <application>

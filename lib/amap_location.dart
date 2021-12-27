@@ -12,18 +12,18 @@ class AMapLocationQualityReport {
   static const int modeSaving = 3;
   static const int noGpsPermission = 4;
 
-  final bool wifiAble;
+  final bool? wifiAble;
 
-  final int gpsStatus;
+  final int? gpsStatus;
 
-  final int gpsSatellites;
+  final int? gpsSatellites;
 
-  final String networkType;
+  final String? networkType;
 
   //整数部分为秒，浮点部分为毫秒
-  final double netUseTime;
+  final double? netUseTime;
 
-  final String adviseMessage;
+  final String? adviseMessage;
 
   AMapLocationQualityReport({
     this.wifiAble,
@@ -36,24 +36,24 @@ class AMapLocationQualityReport {
 }
 
 class AMapLocation {
-  final double accuracy;
-  final double altitude;
-  final double speed;
-  final double timestamp;
-  final double latitude;
-  final double longitude;
+  final double? accuracy;
+  final double? altitude;
+  final double? speed;
+  final double? timestamp;
+  final double? latitude;
+  final double? longitude;
 
-  final String formattedAddress;
-  final String country;
-  final String province;
-  final String city;
-  final String district;
-  final String citycode;
-  final String adcode;
-  final String street;
-  final String number;
-  final String POIName;
-  final String AOIName;
+  final String? formattedAddress;
+  final String? country;
+  final String? province;
+  final String? city;
+  final String? district;
+  final String? citycode;
+  final String? adcode;
+  final String? street;
+  final String? number;
+  final String? POIName;
+  final String? AOIName;
 
 //    这个参数很重要，在anroid和ios下的判断标准不一样
 //    android下: 0  定位成功。
@@ -85,19 +85,19 @@ class AMapLocation {
 //      AMapLocationErrorRegionMonitoringFailure=10,///<地理围栏错误
 //      AMapLocationErrorRiskOfFakeLocation = 11,   ///<存在虚拟定位风险
 //      };
-  final int code;
+  final int? code;
 
   /// 描述
-  final String description;
+  final String? description;
 
   ///这个字段用来判断有没有定位成功，在ios下，有可能获取到了经纬度，但是详细地址没有获取到，
   /// 这个情况下，值也为true
-  final bool success;
+  final bool? success;
 
   /// 以下属性为anroid特有
-  final String provider;
+  final String? provider;
 
-  final int locationType;
+  final int? locationType;
 
   AMapLocation(
       {this.description,
@@ -150,7 +150,7 @@ class AMapLocation {
   }
 
   /// 是否成功，单纯从经纬度来判断
-  bool isSuccess() {
+  bool? isSuccess() {
     //code > 0 ,有可能是逆地理位置有错误，那么这个时候仍然是成功的
     return success;
   }
@@ -172,7 +172,7 @@ class AMapLocationClient {
       _locationUpdateStreamController.stream;
 
   /// 设置ios的key，android可以直接在配置文件中设置
-  static Future<bool> setApiKey(String key) async {
+  static Future<bool?> setApiKey(String key) async {
     return await _channel.invokeMethod("setApiKey", key);
   }
 
@@ -186,27 +186,27 @@ class AMapLocationClient {
 
   /// 启动系统
   /// @param options 启动系统所需选项
-  static Future<bool> startup(AMapLocationOption option) async {
+  static Future<bool?> startup(AMapLocationOption option) async {
     _channel.setMethodCallHandler(handler);
     return await _channel.invokeMethod("startup", option.toMap());
   }
 
   /// 更新选项，如果已经在监听，那么要先停止监听，再调用这个函数
-  static Future<bool> updateOption(AMapLocationOption option) async {
+  static Future<bool?> updateOption(AMapLocationOption option) async {
     return await _channel.invokeMethod("updateOption", option);
   }
 
-  static Future<bool> shutdown() async {
+  static Future<bool?> shutdown() async {
     return await _channel.invokeMethod("shutdown");
   }
 
   /// 启动监听位置改变
-  static Future<bool> startLocation() async {
+  static Future<bool?> startLocation() async {
     return await _channel.invokeMethod("startLocation");
   }
 
   /// 停止监听位置改变
-  static Future<bool> stopLocation() async {
+  static Future<bool?> stopLocation() async {
     return await _channel.invokeMethod("stopLocation");
   }
 

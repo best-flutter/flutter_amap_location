@@ -197,17 +197,17 @@ static NSDictionary* DesiredAccuracy = @{@"kCLLocationAccuracyBest":@(kCLLocatio
 }
 
 +(NSDictionary*)regeocode2map:(AMapLocationReGeocode *)regeocode{
-    return @{@"formattedAddress":regeocode.formattedAddress,
-             @"country":regeocode.country,
-             @"province":regeocode.province,
-             @"city":regeocode.city,
-             @"district":regeocode.district,
-             @"citycode":regeocode.citycode,
-             @"adcode":regeocode.adcode,
-             @"street":regeocode.street,
-             @"number":regeocode.number,
+    return @{@"formattedAddress":[self checkNull : regeocode.formattedAddress],
+             @"country":[self checkNull : regeocode.country],
+             @"province":[self checkNull : regeocode.province],
+             @"city":[self checkNull : regeocode.city],
+             @"district":[self checkNull : regeocode.district],
+             @"citycode":[self checkNull : regeocode.citycode],
+             @"adcode":[self checkNull : regeocode.adcode],
+             @"street":[self checkNull : regeocode.street],
+             @"number":[self checkNull : regeocode.number],
              @"POIName":[self checkNull : regeocode.POIName],
-             @"AOIName":[self checkNull :regeocode.AOIName],
+             @"AOIName":[self checkNull : regeocode.AOIName],
              };
 }
 
